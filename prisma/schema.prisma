@@ -1,0 +1,347 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model access_models {
+  id            BigInt          @id @default(autoincrement()) @db.UnsignedBigInt
+  access_model  String          @db.VarChar(255)
+  value         String?         @db.VarChar(255)
+  created_at    DateTime?       @db.Timestamp(0)
+  updated_at    DateTime?       @db.Timestamp(0)
+  access_points access_points[]
+}
+
+model access_points {
+  id              BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  value           String        @db.VarChar(255)
+  access_model_id BigInt        @db.UnsignedBigInt
+  description     String?       @db.Text
+  created_at      DateTime?     @db.Timestamp(0)
+  updated_at      DateTime?     @db.Timestamp(0)
+  access_models   access_models @relation(fields: [access_model_id], references: [id], onUpdate: Restrict, map: "access_points_access_model_id_foreign")
+
+  @@index([access_model_id], map: "access_points_access_model_id_foreign")
+}
+
+model booked_packages {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  customer_id    BigInt    @db.UnsignedBigInt
+  package        String    @db.VarChar(255)
+  pay_type       String    @db.VarChar(255)
+  amount         String    @db.VarChar(255)
+  install_amount String    @db.VarChar(255)
+  balance        String    @db.VarChar(255)
+  income         String    @db.VarChar(255)
+  recipt_img     String?   @db.VarChar(255)
+  exp_date       DateTime? @db.Date
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+}
+
+model customers {
+  id                          Int       @id @default(autoincrement())
+  member_id                   String    @db.VarChar(255)
+  first_name                  String    @db.VarChar(255)
+  last_name                   String    @db.VarChar(255)
+  email                       String    @db.VarChar(255)
+  password                    String?   @db.VarChar(255)
+  d_o_b                       DateTime  @db.Date
+  age                         String    @db.VarChar(255)
+  gender                      String    @db.VarChar(255)
+  contact_no                  String    @db.VarChar(255)
+  address                     String?   @db.Text
+  whatsapp_no                 String?   @db.VarChar(255)
+  birth_place                 String?   @db.VarChar(255)
+  birth_time                  String?   @db.VarChar(255)
+  height                      String?   @db.VarChar(255)
+  weight                      String?   @db.VarChar(255)
+  complexion                  String?   @db.VarChar(255)
+  maritial_status             String?   @db.Text
+  physical_status             String?   @db.VarChar(255)
+  religion                    String?   @db.VarChar(255)
+  cast                        String?   @db.Text
+  star_sign                   String?   @db.VarChar(255)
+  rasi                        String?   @db.Text
+  chart_img                   String?   @db.VarChar(255)
+  profile_img                 String?   @db.VarChar(255)
+  img_1                       String?   @db.Text
+  img_2                       String?   @db.Text
+  country_of_birth            String?   @db.Text
+  city_of_birth               String?   @db.Text
+  country_of_resident         String?   @db.Text
+  city_of_resident            String?   @db.Text
+  country_of_citizenship      String?   @db.Text
+  eating_habit                String?   @db.Text
+  smoking_habit               String?   @db.Text
+  drinking_habit              String?   @db.Text
+  primary_school              String?   @db.VarChar(255)
+  secondary_school            String?   @db.VarChar(255)
+  education                   String?   @db.VarChar(255)
+  education_details           String?   @db.Text
+  occupation                  String?   @db.VarChar(255)
+  occupation_details          String?   @db.Text
+  employed_in                 String?   @db.VarChar(255)
+  annual_income               String?   @db.VarChar(255)
+  family_value                String?   @db.VarChar(255)
+  family_type                 String?   @db.VarChar(255)
+  family_status               String?   @db.VarChar(255)
+  fathers_name                String?   @db.VarChar(255)
+  fathers_occupation          String?   @db.VarChar(255)
+  fathers_native_place        String?   @db.VarChar(255)
+  mothers_name                String?   @db.VarChar(255)
+  mothers_occupation          String?   @db.VarChar(255)
+  mothers_native_place        String?   @db.VarChar(255)
+  brothers                    String?   @db.VarChar(255)
+  married_brothers            String?   @db.VarChar(255)
+  sisters                     String?   @db.VarChar(255)
+  married_sisters             String?   @db.VarChar(255)
+  more_family                 String?   @db.Text
+  partner_country_of_resident String?   @db.VarChar(255)
+  partner_resident_status     String?   @db.VarChar(255)
+  partner_education           String?   @db.VarChar(255)
+  partner_occupation          String?   @db.VarChar(255)
+  partner_annual_income       String?   @db.VarChar(255)
+  partner_marital_status      String?   @db.VarChar(255)
+  partner_minimum_age         String?   @db.VarChar(255)
+  partner_maximum_age         String?   @db.VarChar(255)
+  partner_minimum_height      String?   @db.VarChar(255)
+  partner_maximum_height      String?   @db.VarChar(255)
+  partner_physical_status     String?   @db.VarChar(255)
+  partner_mother_tongue       String?   @db.VarChar(255)
+  partner_religion            String?   @db.VarChar(255)
+  partner_star_sign           String?   @db.VarChar(255)
+  partner_cast                String?   @db.VarChar(255)
+  partner_eating_habit        String?   @db.VarChar(255)
+  partner_smoking_habit       String?   @db.VarChar(255)
+  partner_drinking_habit      String?   @db.VarChar(255)
+  package_plan                String    @default("Basic Plan") @db.VarChar(255)
+  image_private               Boolean?
+  contact_private             Boolean?
+  chart_private               Boolean?
+  status                      String?   @default("single") @db.VarChar(50)
+  sevvay_thoosam              String?   @default("no") @db.VarChar(50)
+  sevvay_thoosam_position     String?   @db.VarChar(255)
+  last_seen                   DateTime? @db.DateTime(0)
+  created_at                  DateTime? @db.Timestamp(0)
+  updated_at                  DateTime? @db.Timestamp(0)
+
+  // Relationships
+  sent_interests     interested_profiles[] @relation("Sender")
+  received_interests interested_profiles[] @relation("Recipient")
+}
+
+
+model default_profile_images {
+  id          Int                           @id @default(autoincrement())
+  religion_id Int
+  gender      default_profile_images_gender
+  image_path  String                        @db.VarChar(500)
+  created_at  DateTime?                     @default(now()) @db.DateTime(0)
+  religions   religions                     @relation(fields: [religion_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "default_profile_images_ibfk_1")
+
+  @@unique([gender, religion_id], map: "uq_gen_rel")
+  @@index([religion_id], map: "religion_id")
+}
+
+model discount_packages {
+  id         Int       @id @default(autoincrement())
+  package    String    @db.VarChar(255)
+  amount     String    @db.VarChar(255)
+  start_date DateTime? @db.Date
+  end_date   DateTime? @db.Date
+  draft_date DateTime? @db.Date
+  status     String?   @default("Draft") @db.VarChar(50)
+}
+
+model failed_jobs {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
+  connection String   @db.Text
+  queue      String   @db.Text
+  payload    String   @db.LongText
+  exception  String   @db.LongText
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model hero_images {
+  id            Int       @id @default(autoincrement())
+  image_path    String    @db.VarChar(500)
+  display_order Int?      @default(0)
+  is_active     Boolean?  @default(true)
+  position_y    Int?      @default(50)
+  zoom          Decimal?  @default(1.0) @db.Decimal(3, 1)
+  created_at    DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model interested_profiles {
+  id                Int       @id @default(autoincrement())
+  user_id           Int
+  profile_id        Int
+  is_read           Int?      @default(0) @db.TinyInt
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
+  notification_type String?   @default("interest") @db.VarChar(50)
+
+  sender    customers @relation("Sender", fields: [user_id], references: [id])
+  recipient customers @relation("Recipient", fields: [profile_id], references: [id])
+
+  @@unique([user_id, profile_id, notification_type], map: "unique_notification")
+  @@index([user_id], map: "idx_user_id")
+  @@index([profile_id], map: "idx_profile_id")
+}
+
+
+model intresteds {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name       String    @db.VarChar(255)
+  email      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model messages {
+  id          Int       @id @default(autoincrement())
+  room_id     String    @db.VarChar(255)
+  sender_id   Int
+  receiver_id Int
+  message     String    @db.Text
+  timestamp   DateTime? @default(now()) @db.Timestamp(0)
+  seen        Boolean?  @default(false)
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement()) @db.UnsignedInt
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model password_resets {
+  email      String    @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+
+  @@index([email], map: "password_resets_email_index")
+  @@ignore
+}
+
+model permissions {
+  id           BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  user_type_id BigInt     @db.UnsignedBigInt
+  permission   String     @db.Text
+  created_at   DateTime?  @db.Timestamp(0)
+  updated_at   DateTime?  @db.Timestamp(0)
+  user_types   user_types @relation(fields: [user_type_id], references: [id], onUpdate: Restrict, map: "permissions_user_type_id_foreign")
+
+  @@index([user_type_id], map: "permissions_user_type_id_foreign")
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt    @db.UnsignedBigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model profile_intresteds {
+  id             BigInt    @db.UnsignedBigInt
+  customer_name  String    @db.VarChar(255)
+  mem_id         String    @db.VarChar(255)
+  profile_name   String    @db.VarChar(255)
+  profile_mem_id String    @db.VarChar(255)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@ignore
+}
+
+model religions {
+  id                     Int                      @id @default(autoincrement())
+  name                   String                   @unique(map: "name") @db.VarChar(100)
+  default_profile_images default_profile_images[]
+}
+
+model sample_data {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name       String?   @db.VarChar(30)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model site_settings {
+  id            Int      @id @default(autoincrement())
+  setting_key   String   @unique(map: "setting_key") @db.VarChar(255)
+  setting_value String?  @db.Text
+  created_at    DateTime @default(now()) @db.Timestamp(0)
+  updated_at    DateTime @default(now()) @db.Timestamp(0)
+}
+
+model success_stories {
+  id             Int                    @id @default(autoincrement())
+  partner1_name  String                 @default("") @db.VarChar(255)
+  partner2_name  String                 @default("") @db.VarChar(255)
+  quote          String?                @db.Text
+  marriage_month String?                @db.VarChar(50)
+  marriage_year  String?                @db.VarChar(10)
+  location       String?                @db.VarChar(255)
+  photo          String?                @db.VarChar(500)
+  status         success_stories_status @default(Published)
+  created_at     DateTime               @default(now()) @db.DateTime(0)
+  updated_at     DateTime               @default(now()) @db.DateTime(0)
+}
+
+model user_types {
+  id          BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  user_type   String        @db.VarChar(255)
+  created_at  DateTime?     @db.Timestamp(0)
+  updated_at  DateTime?     @db.Timestamp(0)
+  permissions permissions[]
+  users       users[]
+}
+
+model users {
+  id                BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  name              String     @db.VarChar(255)
+  tp                String?    @db.VarChar(255)
+  email             String     @unique(map: "users_email_unique") @db.VarChar(255)
+  password          String     @db.VarChar(255)
+  user_type_id      BigInt     @db.UnsignedBigInt
+  email_verified_at DateTime?  @db.Timestamp(0)
+  remember_token    String?    @db.VarChar(100)
+  created_at        DateTime?  @db.Timestamp(0)
+  updated_at        DateTime?  @db.Timestamp(0)
+  user_types        user_types @relation(fields: [user_type_id], references: [id], onUpdate: Restrict, map: "users_user_type_id_foreign")
+
+  @@index([user_type_id], map: "users_user_type_id_foreign")
+}
+
+model wedding_gallery {
+  id            Int       @id @default(autoincrement())
+  couple_name   String?   @db.VarChar(255)
+  image_path    String    @db.VarChar(500)
+  display_order Int?      @default(0)
+  is_active     Boolean?  @default(true)
+  created_at    DateTime? @default(now()) @db.Timestamp(0)
+}
+
+enum default_profile_images_gender {
+  male
+  female
+}
+
+enum success_stories_status {
+  Published
+  Draft
+}

@@ -1,0 +1,156 @@
+@import 'flowbite';
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fix for blinking cursor on normal text */
+* {
+  outline: none !important;
+}
+
+body {
+  cursor: default;
+  user-select: none;
+}
+
+/* Ensure form fields still behave correctly */
+input, 
+textarea, 
+select,
+[contenteditable="true"] {
+  cursor: text !important;
+  user-select: text !important;
+}
+
+/* Normal display text should not show text cursor */
+h1, h2, h3, h4, h5, h6, p, span, div, li, td, th, label {
+  cursor: default;
+}
+
+/* Allow text selection in all data tables */
+table td,
+table th {
+  user-select: text !important;
+  cursor: text;
+}
+
+
+/* Custom Local Fonts */
+@font-face {
+  font-family: 'CretinaBold';
+  src: url('./assets/fonts/Cretina-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sacramento';
+  src: url('./assets/fonts/Sacramento-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CretinaRegular';
+  src: url('./assets/fonts/Cretina-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DMSerifDisplay';
+  src: url('./assets/fonts/DMSerifDisplay-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GrandHotel';
+  src: url('./assets/fonts/GrandHotel-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Google Fonts: Work Sans (imported via @font-face for performance and range support) */
+@font-face {
+  font-family: 'Work Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url('https://fonts.gstatic.com/s/worksans/v19/QGY9z_wNahGAdqQ43Rh_ebrnlwyYfEPxPoGU3ms5pIfY.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('https://fonts.gstatic.com/s/worksans/v19/QGYsz_wNahGAdqQ43Rh_fKDp.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://fonts.gstatic.com/s/worksans/v19/QGYsz_wNahGAdqQ43Rh_fKDp.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('https://fonts.gstatic.com/s/worksans/v19/QGYsz_wNahGAdqQ43Rh_fKDp.woff2') format('woff2');
+}
+
+.custom-scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.custom-scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* New Home Page Styles */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #f1d37e 50%, #b8860b 100%);
+}
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 2rem;
+}
+.marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 2rem;
+  animation: scroll 30s linear infinite;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+
+/* Profile View custom styles */
+.gold-gradient {
+  background: linear-gradient(135deg, #C5A059 0%, #F1D592 50%, #C5A059 100%);
+}
+
+.maroon-glass {
+  background: rgba(92, 15, 27, 0.85);
+  backdrop-filter: blur(8px);
+}
