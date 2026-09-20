@@ -18,17 +18,16 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: Frontend-new/package-lock.json
+          cache-dependency-path: Frontend/package-lock.json
 
       - name: Install frontend dependencies
         run: |
-          mkdir Frontend-new
-          cd Frontend-new
+          cd Frontend
           npm ci
 
       - name: Inject API URL and build frontend
         run: |
-          cd Frontend-new
+          cd Frontend
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env.production
           npm run build
 
